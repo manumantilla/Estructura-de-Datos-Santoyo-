@@ -1,0 +1,165 @@
+//package lista_doblemente_enlazada;
+package licorera;
+public class LDE {
+	//Objeto Cabeza y pies
+	    Node head;
+	    Node tail;
+	    int size;
+	    
+	    private class Node {
+	    	/*Este cosntructor nos va a dar la forma del objeto que es
+	    	* prev-data-next 
+	    	*/
+	        int info;
+	        Node next;
+	        Node prev;
+	        
+	        public Node(int info) {
+	            this.info = info;
+	            this.next = null;
+	            this.prev = null;
+	        }
+	    }
+	    
+	    // Agregar un elemento al final de la lista
+	    /*
+	     * como parametro lo que vamos a guardar
+	     * 
+	     * */
+	    public void addFinal(int info) {
+	    	//inicializamos e instanciamos el objeto
+	        Node newNode = new Node(info);
+	        //Tenemos que corroberar que o la lista este completamente vacia o si ya tiene datos
+	        if(head == null) {
+	        	//Como esta vacia entonces cabeza y pies son "iguales"
+	            head = tail = newNode;
+	        } else {
+	            tail.next = newNode;
+	            newNode.prev = tail;
+	            tail = newNode;
+	        }
+	        size++;
+	    }
+	    
+	    // Agregar un elemento al inicio de la lista
+	    public void addFirst(int info) {
+	    	//creamos e instanciamos objeto
+	        Node newNode = new Node(info );
+	        //Logica: la lista esta vacia entoncds es como si la cabez ay pie fueran iguales
+	        if(head == null) {
+	            head = tail = newNode;
+	        } else {		
+	        	/*
+	        	 * Con el conceptod el vecino nos vamos a guiar:
+	        	 * newNode digamos q es 10, para unirlo con HEAD que es otro nodo tenemos que asignar:
+	        	 *  que la posicion next del newNode se convierta en el valor de head.
+	        	 * y que la posicion prev de head se convierta en 10
+	        	 * 
+	        	 * */
+	            newNode.next = head;
+	            head.prev = newNode;
+	            head = newNode;
+	        }
+	        //Aumentamos el tamaño para recordarnos que tenemos un nuevo nodo
+	        size++;
+	    }
+	    
+	    // Obtener el tamaño de la lista
+	    public int size() {
+	        return size;
+	    }
+	    
+	    // Verificar si la lista está vacía
+	    public boolean isEmpty() {
+	        return head == null;
+	    }
+	    
+	    // Mostrar los elementos de la lista desde el inicio
+	    public void displayForward() {
+	        Node currentNode = head;
+	        if(head == null) {
+	            System.out.println("La lista está vacía");
+	            return;
+	        }
+	        System.out.println("Elementos de la lista (desde el inicio):");
+	        //este while funciona tal que asi:
+	        /*
+	         * currentNode es Head, mientras este encuentre un valor en el nodo siguiente 
+	         * este lo va a imprimir
+	         * */
+	        while(currentNode != null) {
+	            System.out.print(currentNode.info + " ");
+	            //Se mueve al siguiende nodo	
+	            currentNode = currentNode.next;
+	        }
+	        System.out.println();
+	    }
+	    
+	    // Mostrar los elementos de la lista desde el final
+	    public void displayBackward() {
+	        Node currentNode = tail;
+	        if(tail == null) {
+	            System.out.println("La lista está vacía");
+	            return;
+	        }
+	        System.out.println("Elementos de la lista (desde el final):");
+	        while(currentNode != null) {
+	            System.out.print(currentNode.info + " ");
+	            currentNode = currentNode.prev;
+	        }
+	        System.out.println();
+	    }
+	    
+	    // Eliminar el primer elemento de la lista
+	    public void removeFirst() {
+	        if(head == null) {
+	            return;
+	        }
+	        if(head == tail) {
+	            head = tail = null;
+	        } else {
+	            head = head.next;
+	            head.prev = null;
+	        }
+	        size--;
+	    }
+	    
+	    // Eliminar el último elemento de la lista
+	    public void removeLast() {
+	        if(tail == null) {
+	            return;
+	        }
+	        if(head == tail) {
+	            head = tail = null;
+	        } else {
+	            tail = tail.prev;
+	            tail.next = null;
+	        }
+	        size--;
+	    }
+	}
+
+//main
+
+public class aaa {
+
+	
+		public static void main(String[] args) {
+				System.out.println("Entra un numero");
+
+				LDE obje = new LDE();
+				//Numeros
+				obje.addFirst(2);
+				obje.addFinal(23);
+				obje.displayForward();
+				//Animales
+				/*
+				 obje.addFirst("perro");
+				 obje.addFinal("gato");
+				 obje.addFinal("loro");
+				 obje.displayForwartd();
+				 **/
+				
+		}
+
+}
